@@ -1,0 +1,10 @@
+@import '../abstracts/variables.scss';
+
+.footer-container {
+	color: #949494;
+    background-color: #eee;	    
+    text-align: center;
+    line-height: 2;
+    padding: pxToRem(45px) 0 pxToRem(120px);
+    font-size: 12px;
+}

@@ -1,0 +1,134 @@
+@import '../abstracts/variables.scss';
+
+.live-container {
+    font-size: 12px;
+}
+
+.live-content::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.live-nav {
+    display: inline-block;
+    width: 100%;
+    @include eq-line-height(pxToRem(85px));
+    padding: 0 pxToRem(20px);
+}
+
+.channel-icon {
+    content: '';
+    width: pxToRem(30px);
+    height: pxToRem(30px);
+}
+
+@mixin channel-icon($float, $left, $right, $url) {
+    float: $float;
+    background: url(#{$url}) no-repeat;
+    background-size: contain;
+    margin: pxToRem(25px) $right pxToRem(25px) $left;
+}
+
+.channel-title {
+    &::before {
+        @extend .channel-icon;
+        @include channel-icon(left, 0, pxToRem(20px), '#{$imgAddressPrefix}/icon_hot.png');
+    }
+}   
+
+.list-channel-title {
+    &::before {
+        @extend .channel-icon;
+        @include channel-icon(left, 0, pxToRem(20px), '#{$imgAddressPrefix}/icon_play.png');
+    }
+}
+
+.list-channel-name {
+    background-color: #F4F4F4;
+    margin-left: pxToRem(30px);
+    border-radius: pxToRem(20px);
+    color: #FA7122;
+    padding: pxToRem(4px) pxToRem(20px);
+}
+
+.channel-detail {
+    float: right;
+
+    &::before {
+        @extend .channel-icon;
+        @include channel-icon(right, pxToRem(20px), 0, '#{$imgAddressPrefix}/icon_detail.png');
+    }
+}
+
+.live-wrapper {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 100%;
+    padding: pxToRem(10px) pxToRem(20px);
+}
+
+.live-poster {
+    position: relative;
+    margin: 0 auto;
+    max-width: 320px;
+}
+
+.live-image-warpper {
+    float: left;
+
+}
+
+.live-image {
+    float: left;
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: pxToRem(10px);
+}
+
+.live-title {
+    @include eq-line-height(pxToRem(50px));
+    color: #000;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-left: pxToRem(8px);  
+}
+
+.live-info {
+    width: 100%;
+    @include eq-line-height(pxToRem(40px));
+    position: absolute;
+    bottom: pxToRem(50px);
+    left: 0;
+    color: #fff;
+    padding: 0 pxToRem(10px);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: linear-gradient(to left, transparent,rgba(0,0,0,.1) 30%, rgba(0,0,0,.8));
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.dy-name {
+    display: inline-block;
+    float: left;
+}
+
+.popularity {
+    display: inline-block;
+    float: right;
+}
+
+.popularity::before {
+    content: '';
+    width: pxToRem(40px);
+    @include eq-line-height(pxToRem(40px));
+    float: left;
+    padding-left: pxToRem(10px);
+    background: url('#{$imgAddressPrefix}/icon_pop.png') no-repeat;
+    background-size: contain;
+}

@@ -1,0 +1,13 @@
+@import './reset.scss';
+
+@media only all and (min-width: 750px) {
+    body {
+        width: 750px;
+        margin: 0 auto;
+    }
+}
+
+.ov-hidden {
+	overflow: hidden;
+	-webkit-overflow-scrolling: touch;
+}

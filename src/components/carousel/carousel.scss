@@ -1,0 +1,42 @@
+@import '../abstracts/variables.scss';
+
+.carousel-container {
+    width: 100%;
+} 
+
+.img-responsive {
+	display: block;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.carousel-container {
+	.swiper-pagination {
+	    height: pxToRem(60px);
+	    line-height: pxToRem(60px);
+	    bottom: 0;
+	    background-color: rgba(0,0,0, 0.5);
+	    text-align: right;
+	    padding-right: 10px;
+	}
+	
+	.swiper-pagination-bullet {
+		background-color: #fff;
+	}
+
+	.swiper-pagination-bullet-active {
+		background-color: #fa7122;
+	}
+}
+
+.carousel-summary {
+	height: pxToRem(60px);
+	line-height: pxToRem(60px);
+	font-size: 12px;
+	color: #fff;
+	position: absolute;
+	left: pxToRem(20px);
+	bottom: 0;
+	z-index: 11;
+	opacity: 0.7;
+}

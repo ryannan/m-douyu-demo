@@ -1,0 +1,17 @@
+/**
+ *  变量声明，及共用function
+ */
+
+$baseFontSize:      40px !default;
+$gray:              #ccc;     
+$imgAddressPrefix:  '../../images' !default;
+
+// pixels to rems 
+@function pxToRem($px) {
+    @return $px / $baseFontSize * 1rem;
+}
+
+@mixin eq-line-height($height) {
+    height: $height;
+    line-height: $height;   
+}
