@@ -20,7 +20,7 @@ module.exports = {
         // filename: '[name].[chunkhash:8].min.js',
         filename: '[name].min.js',
         // 公共文件生成的地址
-        publicPath: 'http://127.0.0.1:8080/dist/'
+        publicPath: '/dist/'
     },
 
     // loader加载器
