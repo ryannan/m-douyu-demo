@@ -38,6 +38,7 @@ sass
  	-functions.scss 	// 共用function的定义
  -base
  	-reset.scss
+ 	-base.scss   		// 可参考bootstrap封装基础样式库
  -layout
 	-header.scss
 	-carousel.scss
@@ -77,3 +78,109 @@ README.md
 webpack.config.js // webpack配置文件
 ```
 
+### 核心功能
+
+##### webpack全局引入zepto，swiper等第三方扩展
+
+由于webpack是以模块化的格式来将多个javascript文件打包成一个文件，并且支持CommonJS和AMD格式。当我们使用第三方的扩展库不支持CommonJS和AMD的规范时，webpack是无法转义识别的。
+在该项目中，引用第三方的swiper是支持的，可以直接使用：
+```
+import swiper from 'swiper';
+```
+zepto也有支持CommonJS规范的(可以去[npmjs](https://www.npmjs.com/)上查找)，推荐使用webpack-zepto：
+```
+$ npm install webpack-zepto --save-dev
+```
+然后在js中引用
+```
+import zepto from 'webpack-zepto';
+```
+但是往往你因为业务需求，不需要全量的zepto，需要自己组装zepto核心模块时，或者第三方库实在不支持CommonJS的情况下，
+这个时候就需要使用到webpack的[shimming modules](http://webpack.github.io/docs/shimming-modules.html)。
+在该项目中使用到的是exports-loader:
+```
+$ npm install exports-loader --save-dev
+```
+然后在index.js中引用
+```
+import $ from 'exports?$!zepto';	// 将zepto作为$全局导出，此时在js中即可以使用$。
+```
+上面`exports?$!zepto`中的zepto是webpack配置的别名，方面统一管理，在webpack.config.js中：
+```
+resolve: {
+	// 别名，可以直接使用别名来代表设定的路径以及其他
+    alias: {
+        zepto: path.join(__dirname, './src/components/vendors/zepto.min.js'),
+    }
+}
+```
+
+##### scss、css和webpack
+
+如下图：
+
+![ddd](http://webpack.github.io/assets/what-is-webpack.png)
+
+由于webpack是将多个javascript文件打包成一个文件，它的一切入口皆是js文件，所以所有的css文件应该在你页面所依赖的js中作为某一个模块导入。
+例如在index.js中：
+```
+import './index.scss';
+```
+在webpack build的时候，会使用css-loader，postcss-loader，sass-loader进行预编译，使用postcss-loader作自动补充css前缀，在编译后，
+js会将css stylesheets内联写入html head中，如下:
+```
+<head>
+ 	<title> Demo </title>
+	<style type="text/css">
+		html {}
+		...
+	</style>
+ </head>
+```
+
+如果希望以外联引用文件的形式引入css，需要使用extract-text-webpack-plugin：
+```
+$ npm install extract-text-webpack-plugin --save-dev
+```
+然后在webpack.config.js中使用：
+```
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+module: {
+	loaders: [
+ 		{ test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!postcss!sass') }
+	]
+},
+
+plugins: [
+ 	new ExtractTextPlugin('[name].min.css')
+]
+```
+
+##### 封装tap和click事件(event/tap.js)
+
+移动端开发，点击事件使用zepto tap事件(比click少300ms延迟)，但是在PC上该事件是无效的，所以我们做一个简单的封装，在移动端使用tap，非移动端使用click事件。
+```
+const UA = window.navigator.userAgent;
+let tap = 'click';
+
+if (/ipad|iphone|android/i.test(UA)) {
+	tap = 'tap';
+}
+
+export default tap;
+```
+
+##### webpack增加文件hash
+
+使用HtmlWebpackPlugin编译输出html文件，可以增加hash配置。也可在output参数中配置(chunkhash或者hash)。
+
+##### 列表页模版
+
+为了避免在js中拼接字符串，引用了js模版的概念，在该项目中我们使用了es6的模版字符串做了一个简单模版。
+用反引号标识(`)，将变量名写在${}中。
+
+### 结语
+在该项目中还使用到了ES6的module，class，promise等特性，后续会着重优化性能，比如webpack打包的大小，字体图标库，使用更轻量的轮播插件，以及试验webp在移动端的场景。
+
+### Done
