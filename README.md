@@ -9,7 +9,7 @@ $ npm run build
 $ npm run server
 ```
 
-访问[http://localhost:8888/dist/pages/index/](http://localhost:8888/dist/pages/index/)访问首页
+访问[http://localhost:8888/dist/pages/index](http://localhost:8888/dist/pages/index)访问首页
 
 ### 技术选型
 
