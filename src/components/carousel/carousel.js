@@ -1,12 +1,12 @@
 // 首页轮播
 class Carousel {
 
-	constructor() {
+	constructor () {
 		this.init();
 	}
 
 	// 初始化轮播swiper
-	init() {
+	init () {
 		new Swiper('.carousel-container', {
 			autoplay: 3000,
 			loop: true,
@@ -15,7 +15,7 @@ class Carousel {
 			lazyLoading: true,
 			pagination: '.carousel-container .swiper-pagination',
 			paginationClickable: true,
-			onSlideChangeStart: function(swiper) {
+			onSlideChangeStart: function (swiper) {
 				$('.carousel-summary span').html($('.carousel-slide').eq(swiper.activeIndex).data('summary'));
 			}
 		});

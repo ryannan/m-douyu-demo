@@ -4,32 +4,32 @@ import tap from '../event/tap.js';
 // 处理绑定事件,状态切换,渲染布局
 class Header {
 
-	constructor() {
+	constructor () {
 		this.isInit = false;
 		this.init();
 	}
 
 	// 初始化
-	init() {
+	init () {
 		this.bindEvent();
 	}
 
 	// 绑定header dom区域的所有事件
-	bindEvent() {
-		let $doc = $(document),
-			_this = this;
+	bindEvent () {
+		let $doc = $(document);
+		let that = this;
 
 		$doc.on(tap, '#headerCategory', ev => {
-			_this.handleCategoryToggle();
+			that.handleCategoryToggle();
 		});
 
-		$doc.on('click', '#headerMenu .swiper-slide', function() {
+		$doc.on('click', '#headerMenu .swiper-slide', function () {
 			$(this).addClass('slide-cur').siblings().removeClass('slide-cur');
 		});
 	}
 
 	// 直播分类菜单点击
-	handleCategoryToggle() {
+	handleCategoryToggle () {
 		$('#headerCategory').toggleClass('header-category-default').toggleClass('header-category-active');
 		$('#headerMenu').toggle();
 		$('#shadowContainer').toggle();
@@ -42,7 +42,8 @@ class Header {
 	}
 
 	// 初始化swiper dom
-	initSwiper() {
+	initSwiper () {
+		/* eslint-disable no-new, no-undef */
 		new Swiper('.menu-swiper', {
 			slidesPerView: 4,
 			centeredSlides: false,

@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var precss = require('precss');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -35,10 +35,11 @@ module.exports = {
             // scss文件编译
             { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!postcss!sass') },
             // 图片转化，小于8k自动转化成base64编码
-            { test: /\.(png|jpg|gif)$/, loader: 'url?limit=81920&name=images/[name].[ext]'},
+            { test: /\.(png|jpg|gif)$/, loader: 'url?limit=81920&name=images/[name].[ext]' },
             // 图标字体
-            { test: /\.(ttf|eot|svg|woff)$/, loader: 'file?limit=10000&name=iconfont/[name].[ext]'}
-    ]},
+            { test: /\.(ttf|eot|svg|woff)$/, loader: 'file?limit=10000&name=iconfont/[name].[ext]' }
+        ]
+    },
 
     babel: {
         presets: ['es2015'],
@@ -71,40 +72,40 @@ module.exports = {
         }),
 
         // 根据模板插入css/js等生成最终HTML
-        new HtmlWebpackPlugin({                        
+        new HtmlWebpackPlugin({
             // favicon:'./src/images/favicon.ico',
             // 生成的html存放路径，相对于 path
-            filename: './pages/index.html', 
+            filename: './pages/index.html',
             // html模板路径
             template: './src/views/index/index.html',
             // 告诉插件要引用entry里面的哪几个入口
             chunks: ['index'],
-            // 允许插件修改哪些内容，包括head与body 
+            // 允许插件修改哪些内容，包括head与body
             inject: 'body',
             // 为静态资源生成hash值
             hash: true,
             // 压缩HTML文件
             minify: {
                 // 移除HTML中的注释
-                removeComments: true,    
+                removeComments: true,
                 // 删除空白符与换行符
                 collapseWhitespace: false
             },
         }),
 
-        new HtmlWebpackPlugin({                        
+        new HtmlWebpackPlugin({
             // favicon:'./src/images/favicon.ico',
-            filename: './pages/list.html', 
+            filename: './pages/list.html',
             template: './src/views/list/list.html',
             chunks: ['list'],
             inject: 'body',
             hash: true,
             minify: {
-                removeComments: true,    
+                removeComments: true,
                 collapseWhitespace: false
-            },
-        }),
+            }
+        })
     ],
 
     devtool: '#source-map'
-}
+};

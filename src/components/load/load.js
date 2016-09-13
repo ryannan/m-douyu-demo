@@ -2,7 +2,7 @@ import tmpl from '../live/live.tmpl.js';
 import tap from '../event/tap.js';
 
 // 将object转为array, 规范格式下可使用Array.from()代替
-function objToArray(obj) {
+function objToArray (obj) {
 	let strArr = [];
 
 	for (let k of Object.keys(obj)) {
@@ -18,41 +18,42 @@ class Load {
 
 	// @param $btn       当前点击的容器
 	// @param $container 需要渲染的容器(列表)
-	constructor() {
+	constructor () {
 		this.$btn = $('#loadContainer');
 		this.$container = $('#liveContent');
 		this.currPage = 1;
-		
 		this.init();
 	}
 
 	// 绑定事件监听,使用promise处理ajax回调
-	init() {
-		let _this = this;
+	init () {
+		let that = this;
 
 		$(document).on(tap, '#loadContainer', ev => {
-			_this.toggleStatus(true);
+			that.toggleStatus(true);
 
-			_this.request().then(response => {
-				_this.toggleStatus(false);
-				return _this.render(response);
+			that.request().then(response => {
+				that.toggleStatus(false);
+				return that.render(response);
 			}, () => {
-				_this.$btn.hide();
+				that.$btn.hide();
 			});
 		});
 	}
 
 	// 改变按钮状态
-	toggleStatus(status) {
+	toggleStatus (status) {
 		if (status) {
-			this.$btn.addClass('loading').attr({"disabled": "disabled"}).html('');
+			this.$btn.addClass('loading').attr({
+				disabled: 'disabled'
+			}).html('');
 		} else {
-			this.$btn.removeClass('loading').removeAttr("disabled").html('加载更多');
+			this.$btn.removeClass('loading').removeAttr('disabled').html('加载更多');
 		}
 	}
 
 	// 加载更多请求
-	request() {
+	request () {
 		return new Promise((resolve, reject) => {
 			$.get('/mock/list.json', response => {
 				if (response.result) {
@@ -67,16 +68,16 @@ class Load {
 	}
 
 	// 列表渲染
-	render(response) {
-		let _this = this;
+	render (response) {
+		let that = this;
 
 		return new Promise((resolve, reject) => {
 			let $content = tmpl(objToArray(response.result));
 
-			_this.$container.append($content);
+			that.$container.append($content);
 
-			if (++_this.currPage == response.pageCount) {
-				return _this.$btn.hide();
+			if (++that.currPage === response.pageCount) {
+				that.$btn.hide();
 			}
 		});
 	}
