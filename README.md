@@ -3,7 +3,7 @@
 ### 安装运行
 
 ```
-$ git clone git@gitlab.dz11.com:nanjing/m-douyu.git
+$ git clone git@github.com:ryannan/m-douyu-demo.git
 $ npm install
 $ npm run build  
 $ npm run server
