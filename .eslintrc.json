@@ -1,0 +1,41 @@
+{
+    "extends": ["airbnb-base/legacy", "semistandard"],
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true,
+        "amd": true,
+        "mocha": true,
+        "jquery": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "globals": {
+        "assert": true,
+        "expect": true,
+        "$SYS": true,
+        "$ROOM": true,
+        "_pageadvar": true,
+        "DYS": true
+    },
+    "rules": {
+        "linebreak-style": 0,
+        "indent": [2, "tab", { "SwitchCase": 1 }],
+        "quote-props": ["error", "as-needed", { "keywords": true, "unnecessary": true, "numbers": false }],
+        "consistent-this": ["error", "that"],
+        "func-names": 0,
+        "no-underscore-dangle": ["error", { "allow": ["_id", "__v"] }],
+        "no-restricted-syntax": 0,
+        "guard-for-in": 1,
+        "vars-on-top": 1,
+        "no-tabs": 0,
+        "class-methods-use-this": 0,
+        "no-plusplus": 0
+    },
+    "parser": "babel-eslint"
+}
